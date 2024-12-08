@@ -1,4 +1,4 @@
-package io.bootify.swetube.util;
+package io.bootify.swetube.util.Mappers;
 
 import io.bootify.swetube.domain.User;
 import io.bootify.swetube.domain.Video;
@@ -54,4 +54,6 @@ public class VideoMapper {
         }
         return video;
     }
+
+
 }
