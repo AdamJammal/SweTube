@@ -1,0 +1,32 @@
+2024-12-03 08:18:50 [restartedMain] INFO  i.bootify.swetube.SwetubeApplication - Starting SwetubeApplication using Java 23.0.1 with PID 13748 (C:\Users\Ahmad\Dropbox\Projekt\SweTube\backend\target\classes started by Ahmad in C:\Users\Ahmad\Dropbox\Projekt\SweTube\frontend)
+2024-12-03 08:18:50 [restartedMain] DEBUG i.bootify.swetube.SwetubeApplication - Running with Spring Boot v3.4.0, Spring v6.2.0
+2024-12-03 08:18:50 [restartedMain] INFO  i.bootify.swetube.SwetubeApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-03 08:18:52 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-12-03 08:18:52 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2024-12-03 08:18:52 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-12-03 08:18:53 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-12-03 08:18:53 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.2.Final
+2024-12-03 08:18:53 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-12-03 08:18:53 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-12-03 08:18:53 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6a193f01
+2024-12-03 08:18:53 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-12-03 08:18:53 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.5.5 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 8.0.0. Check the community dialects project for available legacy versions.
+2024-12-03 08:18:53 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 5.5.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2024-12-03 08:18:54 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-12-03 08:18:54 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 8eb6de09-b4b5-43d2-a241-12ae3b2e2e75
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-12-03 08:18:55 [restartedMain] INFO  i.g.w.e.AbstractErrorHandlingConfiguration - Error Handling Spring Boot Starter active with 8 handlers
+2024-12-03 08:18:55 [restartedMain] INFO  i.bootify.swetube.SwetubeApplication - Started SwetubeApplication in 5.896 seconds (process running for 7.388)
+2024-12-03 08:18:59 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-12-03 08:18:59 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

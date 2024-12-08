@@ -1,0 +1,22 @@
+<div class="dashboard-layout">
+
+  <!-- Topbar -->
+  <app-topbar class="topbar"></app-topbar>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <section class="video-grid">
+      <div class="video-card" *ngFor="let video of videos" (click)="goToVideo(video.videoId, video.videoUrl)">
+        <img
+          [src]="video.videoThumbnailUrl ? video.videoThumbnailUrl : 'https://via.placeholder.com/300x150'"
+          alt="Video Thumbnail"
+          class="thumbnail"
+        />
+        <h3>{{ video.videoTitle }}</h3>
+        <p><strong>Uppladdad av:</strong> {{ video.userName }}</p>
+        <p><strong>Datum:</strong> {{ video.videoUploadDate }}</p>
+        <button class="watch-button">Titta nu</button>
+      </div>
+    </section>
+  </div>
+</div>

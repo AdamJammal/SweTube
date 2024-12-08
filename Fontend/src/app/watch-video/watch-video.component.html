@@ -1,0 +1,111 @@
+<mat-sidenav-container class="dashboard-layout">
+  <mat-sidenav-content class="main-content">
+    <!-- Topbar -->
+    <app-topbar></app-topbar>
+
+
+    <!-- Huvudinnehåll -->
+    <div class="video-card">
+      <!-- Videospelare -->
+      <mat-card class="video-player-card">
+        <iframe class="video-player" [src]="safeVideoUrl" allowfullscreen></iframe>
+      </mat-card>
+
+
+
+      <!-- Videodetaljer -->
+      <mat-card-title class="video-title">{{ videoTitle }}</mat-card-title>
+      <mat-card class="video-details-card">
+        <mat-card class="uploader-info-card">
+          <div class="uploader-info">
+            <img class="channel-avatar" src="https://via.placeholder.com/48" alt="Uploader Avatar">
+            <div class="channel-details">
+              <span class="channel-name">{{ userName }}</span>
+              <span class="channel-subscribers">24 prenumeranter</span>
+            </div>
+            <button class="subscribe-button">Prenumerera</button>
+          </div>
+          <div class="video-stats">
+            <span>{{ videoViews }} visningar</span>
+            <div class="like-button-container">
+              <mat-icon class="like-icon">thumb_up</mat-icon>
+              <span class="like-button-text">{{ videoLikes }}</span>
+              <mat-icon class="dislike-icon">thumb_down</mat-icon>
+              <span class="dislike-button-text">{{ videoDislikes }}</span>
+            </div>
+          </div>
+        </mat-card>
+
+        <mat-card class="video-description-card">
+          <div class="video-description-header">
+            <span class="upload-date">{{ videoDate }}</span>
+            <div class="hashtags">
+              <span>#example</span>
+              <span>#video</span>
+            </div>
+          </div>
+          <div class="video-description-content">
+            <div *ngIf="videoDescription">
+              <h3>Beskrivning</h3>
+              <p>{{ videoDescription }}</p>
+            </div>
+            <ng-container *ngIf="!videoDescription">
+              <p>Ingen beskrivning tillgänglig.</p>
+            </ng-container>
+          </div>
+        </mat-card>
+      </mat-card>
+
+      <!-- Kommentarer -->
+      <mat-card class="comments-section">
+        <div class="comments-header">
+          <h3>{{ comments.length }} kommentarer</h3>
+          <div class="sort-options">
+            <mat-icon>sort</mat-icon>
+            <span>Sortera efter</span>
+          </div>
+        </div>
+
+        <div class="add-comment">
+          <img class="user-avatar" [src]="userAvatar" alt="User Avatar" />
+          <input
+            type="text"
+            class="comment-input"
+            [ngClass]="{ 'expanded': isCommentValid }"
+            [(ngModel)]="newCommentText"
+            (input)="onInputChange()"
+            placeholder="Lägg till en kommentar ..."
+          />
+          <button
+            class="submit-button"
+            [ngClass]="{ 'active': isCommentValid }"
+            (click)="addComment()"
+          >
+            Kommentera
+          </button>
+        </div>
+
+        <div class="comments-list">
+          <div class="comment-item" *ngFor="let comment of comments">
+            <img class="comment-avatar" [src]="comment.userAvatar || 'https://via.placeholder.com/40'" alt="User Avatar" />
+            <div class="comment-content">
+              <h4>{{ comment.userName }}</h4>
+              <p>{{ comment.text }}</p>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Rekommenderade videor -->
+    <mat-card class="recommended-videos">
+      <div class="video-item" *ngFor="let video of relatedVideos">
+        <img mat-card-image [src]="video.thumbnail" alt="Rekommenderad video">
+        <div class="video-details">
+          <h3>{{ video.title }}</h3>
+          <p>{{ video.views }} visningar • {{ video.uploadDate }}</p>
+        </div>
+      </div>
+    </mat-card>
+  </mat-sidenav-content>
+</mat-sidenav-container>

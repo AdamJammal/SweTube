@@ -1,0 +1,95 @@
+.dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .sidebar {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: 240px;
+    height: calc(100vh - 56px);
+    background-color: #181818;
+    overflow-y: auto;
+    transition: transform 0.3s ease-in-out;
+
+    &.open {
+      transform: translateX(0);
+    }
+
+    &.closed {
+      transform: translateX(-100%);
+    }
+  }
+
+  .topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 56px;
+    background-color: #202020;
+    z-index: 3;
+  }
+
+  .main-content {
+    margin-left: 240px; /* Lämnar plats för sidebar när den är öppen */
+    margin-top: 56px;
+    padding: 60px;
+    background-color: #121212;
+    color: white;
+    overflow-y: auto;
+    flex: 1;
+    transition: margin-left 0.3s ease; /* Lägger till smidig övergång vid sidebar toggle */
+  }
+
+  .main-content.expanded {
+    margin-left: 0; /* Tar bort margin-left när sidebar är stängd */
+  }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsiv layout */
+    gap: 20px;
+
+    .video-card {
+      background: #202020;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+      img {
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      h3 {
+        font-size: 16px;
+        color: white;
+        margin: 10px 0;
+      }
+
+      p {
+        font-size: 12px;
+        color: #aaa;
+        margin: 5px 0;
+      }
+
+      .watch-button {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 15px;
+        background-color: #0a84ff;
+        color: white;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      .watch-button:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+<div class="layout">
+  <!-- Topbar -->
+  <app-topbar></app-topbar>
+
+  <div class="content">
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+
+    <!-- Main content -->
+    <div class="main-content">
+      <div class="video-information-container">
+        <h2>Information</h2>
+
+        <div class="form-group">
+          <label for="title">Titel (obligatoriskt)</label>
+          <input
+            id="title"
+            type="text"
+            [(ngModel)]="videoTitle"
+            maxlength="100"
+            placeholder="Ange en titel"
+          />
+          <span class="character-count">{{ videoTitle.length }}/100</span>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Beskrivning</label>
+          <textarea
+            id="description"
+            [(ngModel)]="videoDescription"
+            placeholder="Berätta för tittarna om din video (ange @ för att nämna en kanal)"
+          ></textarea>
+        </div>
+
+        <div class="video-preview">
+          <h3>Videolänk</h3>
+          <a [href]="youtubeLink" target="_blank">{{ youtubeLink }}</a>
+          <p>Bearbetningen börjar snart</p>
+        </div>
+
+        <button class="save-button" (click)="saveDetails()">Spara</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="login-wrapper">
+  <div class="login-container">
+    <!-- Left Section: Login -->
+    <div class="login-left">
+      <h1>Välkommen tillbaka!</h1>
+      <p>Logga in på ditt konto</p>
+      <form (ngSubmit)="login()" #loginForm="ngForm">
+        <!-- Input för användarnamn -->
+        <div class="input-container">
+          <label for="username">Användarnamn</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            [(ngModel)]="username"
+            placeholder="Ange användarnamn"
+            required
+          />
+        </div>
+
+        <!-- Input för lösenord -->
+        <div class="input-container">
+          <label for="password">Lösenord</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="Ange lösenord"
+            required
+          />
+        </div>
+
+        <!-- Forgot password -->
+        <a class="forgot-password" href="#">Glömt lösenord?</a>
+
+        <!-- Login-knapp -->
+        <button type="submit" [disabled]="!loginForm.valid || isLoading" class="login-button">
+          <span *ngIf="!isLoading">LOGGA IN</span>
+          <span *ngIf="isLoading">Laddar...</span>
+        </button>
+      </form>
+
+      <!-- Meddelanden -->
+      <p *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</p>
+      <p *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</p>
+
+      <!-- Sign up länk -->
+      <a class="signup-link" href="/register">SKAPA KONTO</a>
+    </div>
+
+    <!-- Right Section: Registration -->
+    <div class="login-right">
+      <h2>Ny här?</h2>
+      <p>Skapa ett konto för att komma igång</p>
+      <button class="register-button" (click)="goToRegister()">
+        Registrera nu
+      </button>
+    </div>
+  </div>
+</div>

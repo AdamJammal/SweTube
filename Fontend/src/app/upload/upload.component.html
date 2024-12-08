@@ -1,0 +1,51 @@
+<div class="layout">
+  <app-topbar></app-topbar> <!-- Topbar -->
+  <app-sidebar></app-sidebar> <!-- Sidebar -->
+
+  <div class="main-content">
+    <div class="upload-container">
+      <h1>Upload Video</h1>
+
+      <!-- Knappar för att välja uppladdningstyp -->
+      <div class="upload-options">
+        <button class="link-button" (click)="showLinkModal()">Länk</button>
+        <button class="file-button" (click)="showFileModal()">Ladda upp</button>
+      </div>
+
+      <!-- Modal för YouTube-länk -->
+      <div class="modal" *ngIf="isLinkModalOpen">
+        <div class="modal-content">
+          <h2>Ange YouTube-länk</h2>
+          <input
+            type="text"
+            [(ngModel)]="youtubeLink"
+            placeholder="Enter YouTube URL"
+          />
+          <div class="modal-actions">
+            <button (click)="submitYoutubeLink()">Skicka</button>
+            <button (click)="closeModals()">Avbryt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal för filuppladdning -->
+      <div class="modal" *ngIf="isFileModalOpen">
+        <div class="modal-content">
+          <h2>Ladda upp fil</h2>
+          <input
+            type="file"
+            (change)="onFileSelected($event)"
+            accept=".mp4"
+          />
+          <div class="modal-actions">
+            <button (click)="uploadVideo()">Ladda upp</button>
+            <button (click)="closeModals()">Avbryt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statusmeddelande -->
+      <p *ngIf="message">{{ message }}</p>
+    </div>
+  </div>
+</div>

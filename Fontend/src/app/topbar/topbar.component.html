@@ -1,0 +1,35 @@
+<header class="topbar">
+  <!-- Button to toggle Sidebar -->
+  <button mat-icon-button (click)="toggleSidebar()" aria-label="Toggle Sidebar">
+    <mat-icon>menu</mat-icon> <!-- Burger Menu Icon -->
+  </button>
+
+  <div class="logo" (click)="navigateToDashboard()">
+    <img src="https://via.placeholder.com/80x20" alt="Logo" />
+  </div>
+
+  <!-- Material Design Search Input -->
+  <mat-form-field appearance="fill" class="search-bar">
+    <mat-label>Sök</mat-label>
+    <input matInput placeholder="Sök" />
+  </mat-form-field>
+
+  <!-- Material Design Button for Upload -->
+  <button mat-raised-button color="primary" class="upload-button" (click)="navigateToUpload()">Ladda upp</button>
+
+  <!-- Profile Dropdown with Material Buttons -->
+  <div class="profile-dropdown">
+    <button mat-button [matMenuTriggerFor]="menu">
+      {{ userName }}
+    </button>
+
+    <!-- Material Menu -->
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="navigateToEditProfile()">Redigera Profil</button>
+      <button mat-menu-item (click)="logout()">Logga ut</button>
+    </mat-menu>
+  </div>
+</header>
+
+<!-- Lägg till Sidebar och skicka sidebarOpen till den -->
+<app-sidebar [sidebarOpen]="sidebarOpen"></app-sidebar>

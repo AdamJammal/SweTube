@@ -1,0 +1,58 @@
+html, body {
+  height: 100%; /* Säkerställ att hela sidan täcker visningsområdet */
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif; /* Använd Material Design's rekommenderade font */
+  background: #121212; /* Enhetlig bakgrundsfärg */
+  color: white;
+  overflow-x: hidden; /* Ta bort eventuell horisontell rullning */
+}
+
+/* För att förhindra FOUC och se till att typsnittet renderas korrekt */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+/* Material Design-specific styles */
+.material-icons {
+  font-family: 'Material Icons', sans-serif;
+}
+
+button, .mat-button {
+  border-radius: 4px; /* Material Design standard för knappar */
+}
+
+/* Stöd för Material Design-färger */
+.mat-primary {
+  background-color: #007bff !important; /* Standardprimary färg */
+  color: white;
+}
+
+.mat-accent {
+  background-color: #ff4081 !important; /* Accentfärg */
+  color: white;
+}
+
+/* Anpassa Material Design's inputfält */
+.mat-form-field {
+  background-color: #333;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+/* Globalt för att justera Material Design-komponenternas padding */
+.mat-card {
+  padding: 16px;
+}
+
+/* Material Design knappar */
+button.mat-raised-button {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
