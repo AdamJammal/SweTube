@@ -94,8 +94,6 @@ public class UserController {
         }
     }
 
-
-
     @PutMapping("/profile/change-password")
     public ResponseEntity<ApiResponse> changePassword(@RequestBody @Valid ChangePasswordDTO changePasswordDTO) {
         ApiResponse response = userService.changePassword(changePasswordDTO);

@@ -1,7 +1,6 @@
 <header class="topbar">
-  <!-- Button to toggle Sidebar -->
-  <button mat-icon-button (click)="toggleSidebar()" aria-label="Toggle Sidebar">
-    <mat-icon>menu</mat-icon> <!-- Burger Menu Icon -->
+  <button mat-icon-button (click)="toggleSidebar()">
+    <mat-icon>{{ sidebarOpen ? 'close' : 'menu' }}</mat-icon>
   </button>
 
   <div class="logo" (click)="navigateToDashboard()">
@@ -25,11 +24,9 @@
 
     <!-- Material Menu -->
     <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="navigateToProfile()">Profil</button>
       <button mat-menu-item (click)="navigateToEditProfile()">Redigera Profil</button>
       <button mat-menu-item (click)="logout()">Logga ut</button>
     </mat-menu>
   </div>
 </header>
-
-<!-- Lägg till Sidebar och skicka sidebarOpen till den -->
-<app-sidebar [sidebarOpen]="sidebarOpen"></app-sidebar>

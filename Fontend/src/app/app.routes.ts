@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './config/auth.guard';
-import { WatchVideoComponent } from './watch-video/watch-video.component'; // Importera WatchVideoComponent
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -31,5 +30,18 @@ export const routes: Routes = [
     path: 'upload-youtube-video',
     loadComponent: () => import('./upload-youtube-video/upload-youtube-video.component').then(m => m.UploadYoutubeVideoComponent),
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'edit-profile',
+    loadComponent: () => import('./edit-profile/edit-profile.component').then(m => m.EditProfileComponent),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./profile/profile-routing.module').then(
+        (m) => m.ProfileRoutingModule
+      ), // Lazy load the profile routing module
+    canActivate: [AuthGuard] // Protect profile routes
   },
 ];

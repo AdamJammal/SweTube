@@ -178,7 +178,6 @@ public class UserService {
         return new ApiResponse("Password updated successfully", true);
     }
 
-    // Kontrollera om e-postadressen är tagen av en annan användare
 // Kontrollera om e-postadressen är tagen av en annan användare
     private boolean isEmailTakenByAnotherUser(String email, Long userId) {
         // Kontrollera om e-postadressen finns i databasen, och se till att den inte tillhör den aktuella användaren

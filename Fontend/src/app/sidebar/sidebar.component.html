@@ -1,7 +1,7 @@
 <mat-sidenav-container class="dashboard-layout">
-  <mat-sidenav-content class="main-content" [ngClass]="{'expanded': !sidebarOpen}">
-    <!-- Sidebar with dynamic class based on sidebarOpen -->
-    <aside class="sidebar" [ngClass]="{'open': sidebarOpen}">
+  <mat-sidenav-content class="main-content">
+    <!-- Sidebar -->
+    <aside class="sidebar" [class.open]="sidebarOpen">
       <ul class="menu">
         <li><a href="#">Hem</a></li>
         <li><a href="#">Shorts</a></li>
@@ -16,10 +16,5 @@
         <li><a href="#">Videor du gillat</a></li>
       </ul>
     </aside>
-
-    <!-- Huvudinnehåll -->
-    <div class="video-card">
-      <!-- Videospelare etc. -->
-    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

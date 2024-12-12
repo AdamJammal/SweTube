@@ -1,7 +1,9 @@
-<div class="dashboard-layout">
+<!-- Topbar -->
+<app-topbar [sidebarOpen]="sidebarOpen" (sidebarToggle)="toggleSidebar($event)"></app-topbar>
 
-  <!-- Topbar -->
-  <app-topbar class="topbar"></app-topbar>
+<div class="dashboard-layout">
+  <!-- Sidebar -->
+  <app-sidebar [sidebarOpen]="sidebarOpen"></app-sidebar>
 
   <!-- Main Content -->
   <div class="main-content">

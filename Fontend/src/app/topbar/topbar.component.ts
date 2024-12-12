@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu'; // Importera MatMenuModule
@@ -19,14 +19,14 @@ import { SidebarComponent } from '../sidebar/sidebar.component'; // Importera Si
     MatIconModule,         // För mat-icon
     MatButtonModule,       // För mat-button och mat-icon-button
     MatFormFieldModule,    // För mat-form-field
-    MatInputModule,
-    SidebarComponent,
+    MatInputModule
   ],
 })
 export class TopbarComponent {
   dropdownOpen = false;
   userName: string | null = null;
-  sidebarOpen = true; // Styr synlighet på sidomenyn
+  @Input() sidebarOpen: boolean = false; // Tar emot initialstatusen från föräldern
+  @Output() sidebarToggle = new EventEmitter<boolean>();
 
   constructor(private router: Router) {}
 
@@ -39,7 +39,8 @@ export class TopbarComponent {
   }
 
   toggleSidebar(): void {
-    this.sidebarOpen = !this.sidebarOpen; // Toggle sidebar synlighet
+    this.sidebarOpen = !this.sidebarOpen;
+    this.sidebarToggle.emit(this.sidebarOpen); // Skickar statusen till föräldern
   }
 
   navigateToUpload(): void {
@@ -51,7 +52,11 @@ export class TopbarComponent {
   }
 
   navigateToEditProfile(): void {
-    this.router.navigate(['/profile/edit']);
+    this.router.navigate(['/edit-profile']); // Korrekt rutt
+  }
+
+  navigateToProfile(): void {
+    this.router.navigate(['/profile']); // Korrekt rutt
   }
 
   logout(): void {

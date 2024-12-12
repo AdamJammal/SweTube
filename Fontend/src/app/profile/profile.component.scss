@@ -1,0 +1,232 @@
+.profile-page {
+  background-color: #181818;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.cover-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.cover-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.profile-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  background-color: #1c1c1c;
+  color: white;
+  padding: 20px;
+  border-radius: 0 0 10px 10px;
+}
+
+.profile-picture-section {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1c1c1c !important;
+  color: white !important;
+  border: none;
+  box-shadow: none;
+  padding: 20px;
+}
+
+.profile-avatar {
+  width: 150px; /* Större storlek för profilbilden */
+  height: 150px;
+  border: 4px solid #007bff;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 15px; /* Avstånd till sociala knappar */
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  margin-top: 0;
+
+  button {
+    width: 45px; /* Mindre storlek för knappar */
+    height: 45px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    background-color: #1c1c1c;
+    color: white;
+    margin: 0 5px; /* Minskad marginal mellan ikoner */
+    font-size: 18px; /* Justerat fontstorlek för ikoner */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #007bff;
+    color: white;
+  }
+
+  i {
+    font-size: 18px;
+    color: white;
+    transition: color 0.3s ease;
+  }
+
+  i.fab {
+    font-family: "Font Awesome 5 Brands" !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+  }
+
+  button:hover i {
+    color: #fff;
+  }
+}
+
+
+.profile-info {
+  flex: 1;
+  padding-left: 50px;
+  padding-right: 30px;
+}
+
+.profile-info h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.profile-info p:first-of-type {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.profile-info p {
+  margin: 5px 0;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.action-section {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.follow-button,
+.mat-raised-button {
+  background-color: transparent !important;
+  border: 1px solid white !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 25px !important; /* Rundare knapp */
+  font-size: 14px !important;
+  font-weight: bold;
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.follow-button:hover,
+.mat-raised-button:hover {
+  background-color: #007bff !important;
+  color: white !important;
+  transform: scale(1.05); /* Lätt zoom-effekt vid hover */
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.follow-button::after,
+.mat-raised-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.follow-button:hover::after,
+.mat-raised-button:hover::after {
+  width: 100%;
+}
+
+.profile-container,
+.profile-navigation {
+  max-width: 1200px; /* Samma bredd för båda sektionerna */
+  margin: 0 auto; /* Centrerar sektionerna */
+  padding: 0 20px; /* Lägger till lite sidopadding */
+}
+
+.profile-navigation {
+  display: flex;
+  justify-content: center; /* Centrerar navigationsobjekten */
+  align-items: center;
+  background-color: #1c1c1c;
+  margin: 0 auto;
+  padding: 10px 0;
+  border-radius: 0; /* Tar bort rundade hörn */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+  .nav-tabs {
+    display: flex;
+    justify-content: space-around;
+    width: 100%; /* Anpassar bredden till containern */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    border-bottom: 2px solid #333;
+  }
+
+  .nav-item {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+    }
+  }
+
+  .nav-item.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    box-shadow: inset 0 0 10px rgba(0, 123, 255, 0.7);
+  }
+}
+
+

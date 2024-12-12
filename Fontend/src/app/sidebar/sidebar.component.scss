@@ -1,8 +1,6 @@
-/* Sidebar Styles */
 .sidebar {
-  grid-column: 1 / 2;
   position: fixed;
-  top: 56px; /* Under topbar */
+  top: 56px; /* Placeras under Topbar */
   left: 0;
   width: 240px;
   height: calc(100vh - 56px);
@@ -12,11 +10,11 @@
   z-index: 2;
   transition: transform 0.3s ease-in-out;
 
-  /* Om sidomenyn inte är öppen, döljs den */
+  /* Döljer sidomenyn om den inte är öppen */
   transform: translateX(-100%);
 
   &.open {
-    transform: translateX(0);
+    transform: translateX(0); /* Visar sidomenyn */
   }
 
   ul {

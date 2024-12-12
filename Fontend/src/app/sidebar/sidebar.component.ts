@@ -15,5 +15,5 @@ import { MatButtonModule } from '@angular/material/button';
   ]
 })
 export class SidebarComponent {
-  @Input() sidebarOpen: boolean = true; // Mottar värdet från topbar för att hantera sidomenyns synlighet
+  @Input() sidebarOpen: boolean = false; // Mottar värdet från Topbar
 }

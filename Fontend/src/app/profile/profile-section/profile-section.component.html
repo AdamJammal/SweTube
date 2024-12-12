@@ -1,0 +1,67 @@
+<div class="three-column-section">
+  <!-- Vänster kolumn -->
+  <div class="column left-column">
+    <!-- Följda artister -->
+    <div class="left-container">
+      <div class="following-artists">
+        <h3>Jag följer</h3>
+        <div class="artist-grid">
+          <div class="artist" *ngFor="let artist of followedArtists">
+            <img [src]="artist.imgUrl" [alt]="artist.name" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Senaste aktiviteter -->
+    <div class="recent-activities">
+      <h2>Senaste aktiviteter</h2>
+      <div class="carousel">
+        <!-- Vänsterknapp -->
+        <button class="carousel-btn left-btn" (click)="navigateCarousel('prev')">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <!-- Kort -->
+        <div *ngFor="let activity of activities; let i = index" class="activity-card" [class.active]="i === activeIndex">
+          <div class="content-wrapper">
+            <!-- Ikon och text -->
+            <div class="icon-text-container">
+              <div class="icon">
+                <i class="fab fa-spotify"></i>
+              </div>
+              <div class="content">
+                <p>{{ activity.description }}</p>
+                <h3>{{ activity.title }}</h3>
+                <p>{{ activity.subtitle }}</p>
+                <small>{{ activity.platform }}</small>
+              </div>
+            </div>
+            <!-- Tidsstämpel -->
+            <div class="time-stamp">{{ activity.timeAgo }}</div>
+          </div>
+        </div>
+
+        <!-- Högerknapp -->
+        <button class="carousel-btn right-btn" (click)="navigateCarousel('next')">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Rad 3 -->
+    <div class="left-container">
+      <p>Innehåll för rad 3</p>
+    </div>
+  </div>
+
+  <!-- Mitten kolumn -->
+  <div class="column center-column">
+    <p>Mitten kolumn innehåll</p>
+  </div>
+
+  <!-- Höger kolumn -->
+  <div class="column right-column">
+    <p>Höger kolumn innehåll</p>
+  </div>
+</div>
