@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button'; // Korrekt stavning
 import { MatCardModule } from '@angular/material/card';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-profile-section',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatCardModule], // Lägg till Material-moduler här
+  imports: [CommonModule, MatButtonModule, MatCardModule, MatIcon], // Lägg till Material-moduler här
   templateUrl: './profile-section.component.html',
   styleUrls: ['./profile-section.component.scss']
 })
@@ -15,6 +16,12 @@ export class ProfileSectionComponent {
     { description: 'Gillat låten...', title: 'Jonas Alberg', subtitle: 'Bäst i test', platform: 'på Spotify', timeAgo: '1 timme sedan' },
     { description: 'Gillat låten...', title: 'Anna Svensson', subtitle: 'Topplåtar', platform: 'på Spotify', timeAgo: '2 dagar sedan' },
     { description: 'Gillat låten...', title: 'Erik Karlsson', subtitle: 'Mina favoriter', platform: 'på Spotify', timeAgo: '5 minuter sedan' },
+  ];
+
+  friends = [
+    { avatar: 'path/to/avatar1.jpg', name: 'Fredrik M.', username: 'FreddieBoy', friendsCount: '3.1k' },
+    { avatar: 'path/to/avatar2.jpg', name: 'Lisa K.', username: 'LisaK', friendsCount: '2.5k' },
+    { avatar: 'path/to/avatar3.jpg', name: 'John D.', username: 'JohnD', friendsCount: '1.2k' }
   ];
 
   followedArtists = [
@@ -27,6 +34,31 @@ export class ProfileSectionComponent {
     { name: 'Artist 7', imgUrl: 'https://via.placeholder.com/50' },
     { name: 'Artist 8', imgUrl: 'https://via.placeholder.com/50' },
   ];
+
+  playlists = [
+    { name: 'Spellista 1', songCount: 12 },
+    { name: 'Spellista 2', songCount: 9 },
+    { name: 'Spellista 3', songCount: 9 },
+    { name: 'Spellista 3', songCount: 9 },
+    { name: 'Spellista 3', songCount: 9 },
+    { name: 'Spellista 3', songCount: 9 },
+    { name: 'Spellista 3', songCount: 9 },
+    { name: 'Spellista 3', songCount: 9 },
+  ];
+
+  badges = [
+    { id: 1, icon: 'star' },
+    { id: 2, icon: 'favorite' },
+    { id: 3, icon: 'check_circle' },
+    { id: 4, icon: 'emoji_events' },
+    { id: 5, icon: 'thumb_up' },
+    { id: 6, icon: 'bolt' },
+    { id: 7, icon: 'pets' },
+    { id: 8, icon: 'mood' },
+    { id: 9, icon: 'accessibility' },
+  ];
+
+
 
   activeIndex = 0; // Håller reda på vilket kort som är aktivt
 

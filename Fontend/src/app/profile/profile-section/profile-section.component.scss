@@ -1,223 +1,658 @@
 .three-column-section {
   display: flex;
-  justify-content: space-between; /* Sprider ut kolumnerna */
-  align-items: flex-start; /* Justerar innehållet i kolumnerna vertikalt */
-  width: 100%; /* Sektionen tar hela bredden av sidan */
-  margin: 0; /* Ingen marginal ovanför och under sektionen */
-  padding: 10px; /* Padding runt sektionen */
-  background-color: #181818; /* Bakgrundsfärg för sektionen */
+  justify-content: space-between; /* Jämn fördelning mellan kolumner */
+  align-items: flex-start;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  background-color: #181818;
+
 
   .column {
     padding: 15px;
-    background-color: #1c1c1c; /* Bakgrundsfärg för kolumner */
+    background-color: #1c1c1c;
     color: white;
-    border: 1px solid #333; /* Kantlinje för kolumner */
+    border: 1px solid #333;
     border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Lätt skugga */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     margin: 0 10px; /* Mellanrum mellan kolumner */
-
-    &:first-child {
-      margin-left: 0; /* Ingen extra marginal på vänsterkolumn */
-    }
-
-    &:last-child {
-      margin-right: 0; /* Ingen extra marginal på högerkolumn */
-    }
   }
 
-  .left-column {
-    display: flex;
-    flex-direction: column; /* Placera elementen vertikalt */
-    gap: 10px; /* Mellanrum mellan rader */
-    flex: 1; /* Lika stor vikt för vänster och höger kolumn */
+  .left-column,
+  .right-column {
+    flex: 1; /* Vänster och höger kolumn har samma bredd */
+    max-width: 20%; /* Styr maximal bredd */
+    margin-right: 10px; /* Mellanrum mellan vänster och mitten */
+    background-color: #1c1c1c;
+    color: white;
+    padding: 20px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   }
 
   .center-column {
-    flex: 2; /* Dominerande vikt på mittenkolumnen */
+    flex: 2; /* Mittenkolumnen är bredare */
+    max-width: 50%;
   }
 
   .right-column {
-    flex: 1; /* Mindre vikt på högerkolumnen */
+    flex: 1;
+    margin-right: 15px;
+    background-color: #1c1c1c;
+    color: white;
+    padding: 20px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+    .row {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #2a2a2a;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .about-section {
+      h3 {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .about-list {
+        list-style: none;
+        padding: 0;
+
+        li {
+          display: flex;
+          align-items: center;
+          margin-bottom: 15px;
+
+          mat-icon {
+            font-size: 22px;
+            margin-right: 15px;
+            color: #2196f3;
+          }
+
+          span {
+            font-size: 16px;
+            color: #e0e0e0;
+
+            a {
+              color: #64b5f6;
+              text-decoration: none;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+
+      .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        button {
+          padding: 12px 20px;
+          border-radius: 20px;
+          font-size: 16px;
+          text-transform: none;
+          transition: all 0.3s ease;
+
+          &:hover {
+            transform: scale(1.02);
+          }
+        }
+
+        .contact-btn {
+          background-color: #3b5998;
+          color: white;
+
+          &:hover {
+            background-color: #2e4477;
+          }
+        }
+
+        .share-btn,
+        .report-btn {
+          background-color: transparent;
+          color: #3b5998;
+          border: 2px solid #3b5998;
+
+          &:hover {
+            background-color: #f5f5f5;
+            color: #2e4477;
+          }
+        }
+      }
+    }
+
+    .friends-row {
+      h3 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      .friend-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .friend-card {
+          display: flex;
+          align-items: center;
+          padding: 10px;
+          background-color: #2a2a2a;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+          .friend-avatar {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #444;
+            margin-right: 15px;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          .friend-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+
+            .friend-details {
+              flex: 1;
+
+              h4 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: bold;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+
+              .friend-username {
+                font-size: 14px;
+                color: #aaa;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+            }
+
+            .friend-stats {
+              font-size: 14px;
+              color: #e0e0e0;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+    }
+
+    .badges-row {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #2a2a2a; /* Bakgrundsfärg för kortet */
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+      h3 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #e0e0e0; /* Ljus textfärg */
+      }
+
+      .badge-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 kolumner */
+        gap: 15px; /* Mellanrum mellan badges */
+        justify-items: center; /* Centrera innehållet horisontellt */
+      }
+
+      .badge {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+        border: 2px solid #e0e0e0; /* Kantlinje runt badge */
+        border-radius: 50%;
+        transition: transform 0.3s, background-color 0.3s;
+
+        mat-icon {
+          font-size: 24px;
+          color: #e0e0e0; /* Färg på ikonen */
+        }
+
+        &:hover {
+          transform: scale(1.1); /* Liten zoom vid hover */
+          background-color: #3b5998; /* Bakgrundsfärg vid hover */
+          mat-icon {
+            color: white; /* Ändra ikonfärg vid hover */
+          }
+        }
+      }
+    }
   }
 
   .left-container {
-    background-color: #1c1c1c; /* Bakgrundsfärg för varje container */
+    background-color: #1c1c1c;
     color: white;
-    border: 1px solid #333; /* Kantlinje */
-    border-radius: 5px; /* Lätt rundning av hörn */
-    padding: 15px; /* Padding inuti varje container */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Lätt skugga */
-  }
-}
-
-.following-artists {
-  background-color: #1c1c1c;
-  color: white;
-  padding: 15px;
-  border: 1px solid #333;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-
-  h3 {
-    margin-bottom: 10px;
-    font-size: 18px;
-    font-weight: bold;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   }
 
-  .artist-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Fyra kolumner */
-    gap: 10px; /* Mellanrum mellan ikoner */
-  }
-
-  .artist {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    border: 1px solid #555;
-    border-radius: 50%;
-    overflow: hidden;
-    transition: transform 0.3s;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    &:hover {
-      transform: scale(1.1);
-      border-color: #007bff;
-    }
-  }
-}
-
-.recent-activities {
-  padding: 20px;
-  text-align: left;
-
-  h2 {
-    margin-bottom: 20px;
-    font-size: 20px;
-    font-weight: bold;
+  .following-artists {
+    background-color: #1c1c1c;
     color: white;
-    text-align: left;
-  }
+    padding: 15px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 
-  .carousel {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: visible;
-
-    .activity-card {
-      flex: 0 0 90%;
-      display: none;
-      opacity: 0;
-      background-color: #1c1c1c;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      padding: 15px;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      position: relative;
-      margin: 20px 0;
-      text-align: left;
-      color: white;
-
-      &.active {
-        display: flex;
-        opacity: 1;
-      }
-
-      .content-wrapper {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-left: 5px
-      }
-
-      .icon-text-container {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-
-        .icon {
-          width: 50px;
-          height: 50px;
-          background-color: #1db954;
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          i {
-            font-size: 24px;
-            color: #fff;
-          }
-        }
-
-        .content {
-          p {
-            margin: 3px 0;
-            font-size: 14px;
-            color: #ccc;
-          }
-
-          h3 {
-            margin: 5px 0;
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-          }
-
-          small {
-            font-size: 12px;
-            color: #777;
-          }
-        }
-      }
-
-      .time-stamp {
-        position: absolute;
-        bottom: 10px;
-        right: 15px;
-        font-size: 12px;
-        color: #999;
-        font-style: italic;
-      }
+    h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: bold;
     }
 
-    .carousel-btn {
-      width: 30px; /* Sätt en mindre bredd */
-      height: 30px; /* Sätt en mindre höjd */
-      font-size: 10px; /* Justera textstorleken */
-      padding: 4px; /* Mindre padding */
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: #444;
-      border: none;
-      color: white;
-      cursor: pointer;
+    .artist-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .artist {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      border: 1px solid #555;
       border-radius: 50%;
-      z-index: 2;
-      transition: background-color 0.3s ease;
+      overflow: hidden;
+      transition: transform 0.3s;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
 
       &:hover {
-        background-color: #1db954;
+        transform: scale(1.1);
+        border-color: #007bff;
+      }
+    }
+  }
+
+  .recent-activities {
+    padding: 20px;
+    h2 {
+      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .carousel-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+
+      .carousel {
+        display: flex;
+        gap: 15px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        width: 100%;
+
+        .activity-card {
+          flex: 0 0 auto;
+          width: 300px;
+          scroll-snap-align: start;
+          opacity: 0.7;
+          transform: scale(0.95);
+          transition: opacity 0.3s ease, transform 0.3s ease;
+
+          &.active {
+            opacity: 1;
+            transform: scale(1);
+          }
+
+          .activity-card-content {
+            display: flex;
+            align-items: center;
+            background-color: #1c1c1c;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+            .icon {
+              margin-right: 15px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 40px;
+              height: 40px;
+              background-color: #1db954;
+              color: white;
+              border-radius: 50%;
+            }
+
+            .details {
+              h4 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: bold;
+              }
+
+              p {
+                margin: 5px 0;
+                font-size: 14px;
+                color: #ccc;
+              }
+
+              small {
+                font-size: 12px;
+                color: #888;
+              }
+
+              .time-stamp {
+                margin-top: 10px;
+                font-size: 12px;
+                color: #aaa;
+              }
+            }
+          }
+        }
       }
 
-      &.left-btn {
-        left: -20px; /* Justera placeringen om nödvändigt */
+      .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        color: white;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: #1db954;
+        }
+
+        mat-icon {
+          font-size: 24px;
+        }
+
+        &.left-btn {
+          left: -10px;
+        }
+
+        &.right-btn {
+          right: -10px;
+        }
+      }
+    }
+  }
+
+  .playlist-section {
+    margin-top: 20px;
+    background-color: #1c1c1c;
+    padding: 15px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+    h3 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    max-height: calc(3 * 80px + 15px);
+    overflow-y: auto;
+
+    .playlist {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      border: 1px solid #333;
+      border-radius: 5px;
+      height: 70px;
+      padding: 10px;
+
+      &:hover {
+        background-color: #282828;
       }
 
-      &.right-btn {
-        right: -20px;
+      .playlist-thumbnail {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #444;
+        margin-right: 10px;
+      }
+
+      .playlist-details {
+        h4 {
+          margin: 0;
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        p {
+          margin: 0;
+          font-size: 14px;
+          color: #ccc;
+        }
       }
     }
   }
 }
 
+/* Anpassningar för mindre skärmar */
+@media (max-width: 576px) {
+  .three-column-section {
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .column {
+      margin: 0 0 15px; /* Lägger mellanrum mellan kolumner i vertikalt läge */
+      padding: 10px;
+    }
+
+    .right-column, .left-column {
+      flex: 1; /* Anpassar sig till hela bredden */
+    }
+
+    .center-column {
+      flex: 1; /* Tar lika mycket utrymme som de andra kolumnerna */
+    }
+
+    .action-buttons button {
+      font-size: 14px;
+      padding: 10px 15px; /* Justerar storleken för mindre knappar */
+    }
+
+    .friends-row .friend-card {
+      flex-direction: column; /* Gör korten vertikala för att passa mindre skärmar */
+      align-items: flex-start;
+
+      .friend-avatar {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+/* Anpassning för mellanliggande skärmar */
+@media (max-width: 992px) {
+  .three-column-section {
+    .right-column {
+      padding: 15px; /* Minskar padding för att passa mindre skärmar */
+    }
+
+    .playlist-section .playlist {
+      height: auto; /* Låter innehållet definiera höjden */
+      padding: 10px;
+    }
+
+    .recent-activities h2 {
+      font-size: 18px;
+    }
+
+    .about-section h3 {
+      font-size: 18px; /* Justerar rubrikstorleken */
+    }
+  }
+}
+
+/* Globala justeringar */
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none; /* Tar bort standardfokus */
+    box-shadow: 0 0 0 3px rgba(59, 89, 152, 0.3); /* Ger ett subtilt fokusutseende */
+  }
+}
+
+/* Justering av mat-icon */
+mat-icon {
+  vertical-align: middle;
+}
+
+/* Scrollbar design */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1c1c1c;
+}
+
+/* Anpassningar för mindre skärmar */
+@media (max-width: 576px) {
+  .three-column-section {
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .column {
+      margin: 0 0 15px; /* Lägger mellanrum mellan kolumner i vertikalt läge */
+      padding: 10px;
+    }
+
+    .right-column, .left-column {
+      flex: 1; /* Anpassar sig till hela bredden */
+    }
+
+    .center-column {
+      flex: 1; /* Tar lika mycket utrymme som de andra kolumnerna */
+    }
+
+    .action-buttons button {
+      font-size: 14px;
+      padding: 10px 15px; /* Justerar storleken för mindre knappar */
+    }
+
+    .friends-row .friend-card {
+      flex-direction: column; /* Gör korten vertikala för att passa mindre skärmar */
+      align-items: flex-start;
+
+      .friend-avatar {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+/* Anpassning för mellanliggande skärmar */
+@media (max-width: 992px) {
+  .three-column-section {
+    .right-column {
+      padding: 15px; /* Minskar padding för att passa mindre skärmar */
+    }
+
+    .playlist-section .playlist {
+      height: auto; /* Låter innehållet definiera höjden */
+      padding: 10px;
+    }
+
+    .recent-activities h2 {
+      font-size: 18px;
+    }
+
+    .about-section h3 {
+      font-size: 18px; /* Justerar rubrikstorleken */
+    }
+  }
+}
+
+/* Globala justeringar */
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none; /* Tar bort standardfokus */
+    box-shadow: 0 0 0 3px rgba(59, 89, 152, 0.3); /* Ger ett subtilt fokusutseende */
+  }
+}
+
+/* Justering av mat-icon */
+mat-icon {
+  vertical-align: middle;
+}
+
+/* Scrollbar design */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1c1c1c;
+}

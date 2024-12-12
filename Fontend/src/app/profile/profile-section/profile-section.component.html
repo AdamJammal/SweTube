@@ -16,42 +16,46 @@
     <!-- Senaste aktiviteter -->
     <div class="recent-activities">
       <h2>Senaste aktiviteter</h2>
-      <div class="carousel">
+      <div class="carousel-container">
         <!-- Vänsterknapp -->
-        <button class="carousel-btn left-btn" (click)="navigateCarousel('prev')">
-          <i class="fas fa-chevron-left"></i>
+        <button mat-icon-button class="carousel-btn left-btn" (click)="navigateCarousel('prev')">
+          <mat-icon>chevron_left</mat-icon>
         </button>
 
-        <!-- Kort -->
-        <div *ngFor="let activity of activities; let i = index" class="activity-card" [class.active]="i === activeIndex">
-          <div class="content-wrapper">
-            <!-- Ikon och text -->
-            <div class="icon-text-container">
+        <!-- Carousel Items -->
+        <div class="carousel">
+          <div *ngFor="let activity of activities; let i = index" class="activity-card" [class.active]="i === activeIndex">
+            <mat-card class="activity-card-content">
               <div class="icon">
-                <i class="fab fa-spotify"></i>
+                <mat-icon>music_note</mat-icon>
               </div>
-              <div class="content">
-                <p>{{ activity.description }}</p>
-                <h3>{{ activity.title }}</h3>
+              <div class="details">
+                <h4>{{ activity.title }}</h4>
                 <p>{{ activity.subtitle }}</p>
                 <small>{{ activity.platform }}</small>
+                <div class="time-stamp">{{ activity.timeAgo }}</div>
               </div>
-            </div>
-            <!-- Tidsstämpel -->
-            <div class="time-stamp">{{ activity.timeAgo }}</div>
+            </mat-card>
           </div>
         </div>
 
         <!-- Högerknapp -->
-        <button class="carousel-btn right-btn" (click)="navigateCarousel('next')">
-          <i class="fas fa-chevron-right"></i>
+        <button mat-icon-button class="carousel-btn right-btn" (click)="navigateCarousel('next')">
+          <mat-icon>chevron_right</mat-icon>
         </button>
       </div>
     </div>
 
-    <!-- Rad 3 -->
-    <div class="left-container">
-      <p>Innehåll för rad 3</p>
+    <!-- Mina spellistor -->
+    <div class="playlist-section">
+      <h3>Mina spellistor</h3>
+      <div class="playlist" *ngFor="let playlist of playlists">
+        <div class="playlist-thumbnail"></div>
+        <div class="playlist-details">
+          <h4>{{ playlist.name }}</h4>
+          <p>{{ playlist.songCount }} låtar</p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -62,6 +66,61 @@
 
   <!-- Höger kolumn -->
   <div class="column right-column">
-    <p>Höger kolumn innehåll</p>
+    <!-- Om mig -->
+    <mat-card class="row about-section">
+      <h3>Om mig</h3>
+      <ul class="about-list">
+        <li>
+          <mat-icon>home</mat-icon>
+          <span>Sverige / Helsingborg</span>
+        </li>
+        <li>
+          <mat-icon>tag</mat-icon>
+          <span>&#64;ajammal</span>
+        </li>
+        <li>
+          <mat-icon>link</mat-icon>
+          <span>
+            <a href="https://swetube.se/kontakt">Swetube.se/kontakt</a> och 2 länkar
+          </span>
+        </li>
+      </ul>
+      <div class="action-buttons">
+        <button mat-raised-button color="primary" class="contact-btn">Kontakta Adam</button>
+        <button mat-stroked-button color="secondary" class="share-btn">Dela profil</button>
+        <button mat-stroked-button color="secondary" class="report-btn">Anmäl</button>
+      </div>
+    </mat-card>
+
+    <!-- Mina vänner -->
+    <mat-card class="row friends-row">
+      <h3>Mina vänner</h3>
+      <div class="friend-list">
+        <mat-card class="friend-card" *ngFor="let friend of friends">
+          <div class="friend-avatar">
+            <img [src]="friend.avatar" alt="{{ friend.name }}" />
+          </div>
+          <div class="friend-content">
+            <div class="friend-details">
+              <h4>{{ friend.name }}</h4>
+              <span class="friend-username">&#64;{{ friend.username }}</span>
+            </div>
+            <div class="friend-stats">
+              <span>{{ friend.friendsCount }} vänner</span>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </mat-card>
+
+    <!-- Anpassad rad -->     <!-- Rad: Mina badges -->
+      <mat-card class="row badges-row">
+        <h3>Mina badges</h3>
+        <div class="badge-grid">
+          <div class="badge" *ngFor="let badge of badges">
+            <mat-icon>star</mat-icon>
+          </div>
+        </div>
+      </mat-card>
   </div>
 </div>
