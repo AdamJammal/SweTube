@@ -25,6 +25,31 @@ import {FormsModule} from '@angular/forms';
 export class ProfileSectionComponent {
   userAvatar: string = 'https://via.placeholder.com/40'; // Exempelbild för användaravatar
 
+  posts = [
+    {
+      type: 'text',
+      content: 'Idag är en bra dag för att testa Sw eTube',
+      time: '5 timmar sen',
+      avatar: 'https://via.placeholder.com/40',
+      icon: '', // Lägg till tom icon
+    },
+    {
+      type: 'media',
+      content: 'Så kul @JonasAlberg konserten var igår!',
+      time: 'Igår',
+      avatar: 'https://via.placeholder.com/40',
+      media: 'https://via.placeholder.com/150',
+      icon: '', // Lägg till tom icon
+    },
+    {
+      type: 'follow',
+      content: 'Har börjat följa artisten @JonasAlberg',
+      time: 'Igår',
+      avatar: 'https://via.placeholder.com/40',
+      icon: 'person', // Använd en faktisk icon
+    },
+  ];
+
   activities = [
     {
       description: 'Gillat låten...',

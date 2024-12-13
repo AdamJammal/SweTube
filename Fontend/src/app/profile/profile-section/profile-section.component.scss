@@ -486,6 +486,88 @@
       flex-direction: column;
       gap: 10px;
 
+      .post-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center; /* Centrera horisontellt */
+        margin-top: 20px; /* Skapar mer luft mellan inläggsrutan och inläggslistan */
+
+        .post-item {
+          display: flex;
+          flex-direction: row;
+          align-items: center; /* Centrera vertikalt */
+          justify-content: space-between;
+          background-color: #1c1c1c;
+          width: 80%; /* Minska bredden för att centrera visuellt */
+          max-width: 600px; /* Begränsa maximal bredd */
+          padding: 15px;
+          border-radius: 10px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+          gap: 15px;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+          &:hover {
+            transform: translateY(-5px); /* Lyft inlägget något vid hover */
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3); /* Större skugga */
+          }
+
+          &.type-text {
+            background-color: #1e1e1e;
+          }
+          &.type-media {
+            background-color: #222;
+          }
+          &.type-follow {
+            background-color: #2a2a2a;
+          }
+
+          .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          .post-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 8px;
+
+            p {
+              margin: 0;
+              color: white;
+              font-size: 16px;
+              font-weight: 500;
+            }
+
+            .post-time {
+              font-size: 11px;
+              color: #aaa;
+              font-style: italic;
+            }
+
+            .follow-content {
+              margin-top: 10px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              background-color: #333;
+
+              mat-icon {
+                color: white;
+              }
+            }
+          }
+        }
+      }
+
+
       .add-post {
         display: flex;
         align-items: center;
@@ -579,6 +661,11 @@
 
     .center-column {
       flex: 1; /* Tar lika mycket utrymme som de andra kolumnerna */
+
+      .submit-button {
+        padding: 8px 16px;
+        font-size: 12px;
+      }
     }
 
     .action-buttons button {

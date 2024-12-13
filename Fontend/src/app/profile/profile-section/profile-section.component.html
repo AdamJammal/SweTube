@@ -70,12 +70,24 @@
           placeholder="Vad gör du just nu, Ahmad?"
         ></textarea>
         </div>
-        <button class="submit-button">Publicera</button>
+        <button class="submit-button" aria-label="Publicera ditt inlägg">Publicera</button>      </div>
+
+      <div class="post-list">
+        <div *ngFor="let post of posts" class="post-item">
+          <img class="user-avatar" [src]="post.avatar" alt="User Avatar" />
+          <div class="post-content">
+            <p>{{ post.content }}</p>
+            <span class="post-time">{{ post.time }}</span>
+            <div *ngIf="post.icon" class="follow-content">
+              <mat-icon>{{ post.icon }}</mat-icon>
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
-  </div>
 
-
+  </div>  <!-- Mitten kolumn -->
 
   <!-- Höger kolumn -->
   <div class="column right-column">
