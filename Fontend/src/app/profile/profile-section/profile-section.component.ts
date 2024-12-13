@@ -1,27 +1,88 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button'; // Korrekt stavning
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import {MatIcon} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-profile-section',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatCardModule, MatIcon], // Lägg till Material-moduler här
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+  ],
   templateUrl: './profile-section.component.html',
-  styleUrls: ['./profile-section.component.scss']
+  styleUrls: ['./profile-section.component.scss'],
 })
 export class ProfileSectionComponent {
+  userAvatar: string = 'https://via.placeholder.com/40'; // Exempelbild för användaravatar
+
   activities = [
-    { description: 'Gillat låten...', title: 'Jonas Alberg', subtitle: 'Bäst i test', platform: 'på Spotify', timeAgo: '1 timme sedan' },
-    { description: 'Gillat låten...', title: 'Anna Svensson', subtitle: 'Topplåtar', platform: 'på Spotify', timeAgo: '2 dagar sedan' },
-    { description: 'Gillat låten...', title: 'Erik Karlsson', subtitle: 'Mina favoriter', platform: 'på Spotify', timeAgo: '5 minuter sedan' },
+    {
+      description: 'Gillat låten...',
+      title: 'Jonas Alberg',
+      subtitle: 'Bäst i test',
+      platform: 'på Spotify',
+      timeAgo: '1 timme sedan',
+    },
+    {
+      description: 'Gillat låten...',
+      title: 'Anna Svensson',
+      subtitle: 'Topplåtar',
+      platform: 'på Spotify',
+      timeAgo: '2 dagar sedan',
+    },
+    {
+      description: 'Gillat låten...',
+      title: 'Erik Karlsson',
+      subtitle: 'Mina favoriter',
+      platform: 'på Spotify',
+      timeAgo: '5 minuter sedan',
+    },
   ];
 
+  newPostText: string = '';
+  isPostValid: boolean = false;
+
+  onInputChange(): void {
+    this.isPostValid = this.newPostText.trim().length > 0;
+  }
+
+  addPost(): void {
+    if (this.isPostValid) {
+      console.log('New post:', this.newPostText);
+      this.newPostText = ''; // Rensa textfältet
+      this.isPostValid = false;
+    }
+  }
+
   friends = [
-    { avatar: 'path/to/avatar1.jpg', name: 'Fredrik M.', username: 'FreddieBoy', friendsCount: '3.1k' },
-    { avatar: 'path/to/avatar2.jpg', name: 'Lisa K.', username: 'LisaK', friendsCount: '2.5k' },
-    { avatar: 'path/to/avatar3.jpg', name: 'John D.', username: 'JohnD', friendsCount: '1.2k' }
+    {
+      avatar: 'path/to/avatar1.jpg',
+      name: 'Fredrik M.',
+      username: 'FreddieBoy',
+      friendsCount: '3.1k',
+    },
+    {
+      avatar: 'path/to/avatar2.jpg',
+      name: 'Lisa K.',
+      username: 'LisaK',
+      friendsCount: '2.5k',
+    },
+    {
+      avatar: 'path/to/avatar3.jpg',
+      name: 'John D.',
+      username: 'JohnD',
+      friendsCount: '1.2k',
+    },
   ];
 
   followedArtists = [
@@ -30,20 +91,12 @@ export class ProfileSectionComponent {
     { name: 'Artist 3', imgUrl: 'https://via.placeholder.com/50' },
     { name: 'Artist 4', imgUrl: 'https://via.placeholder.com/50' },
     { name: 'Artist 5', imgUrl: 'https://via.placeholder.com/50' },
-    { name: 'Artist 6', imgUrl: 'https://via.placeholder.com/50' },
-    { name: 'Artist 7', imgUrl: 'https://via.placeholder.com/50' },
-    { name: 'Artist 8', imgUrl: 'https://via.placeholder.com/50' },
   ];
 
   playlists = [
     { name: 'Spellista 1', songCount: 12 },
     { name: 'Spellista 2', songCount: 9 },
-    { name: 'Spellista 3', songCount: 9 },
-    { name: 'Spellista 3', songCount: 9 },
-    { name: 'Spellista 3', songCount: 9 },
-    { name: 'Spellista 3', songCount: 9 },
-    { name: 'Spellista 3', songCount: 9 },
-    { name: 'Spellista 3', songCount: 9 },
+    { name: 'Spellista 3', songCount: 15 },
   ];
 
   badges = [
@@ -52,41 +105,16 @@ export class ProfileSectionComponent {
     { id: 3, icon: 'check_circle' },
     { id: 4, icon: 'emoji_events' },
     { id: 5, icon: 'thumb_up' },
-    { id: 6, icon: 'bolt' },
-    { id: 7, icon: 'pets' },
-    { id: 8, icon: 'mood' },
-    { id: 9, icon: 'accessibility' },
   ];
 
+  activeIndex = 0;
 
-
-  activeIndex = 0; // Håller reda på vilket kort som är aktivt
-
-  // Hanterar navigering i carouselen
   navigateCarousel(direction: 'next' | 'prev'): void {
     const totalActivities = this.activities.length;
 
-    // Hämta alla kort
-    const cards = document.querySelectorAll('.activity-card');
-
-    cards.forEach((card, index) => {
-      card.classList.remove('prev', 'next', 'active');
-      if (index === this.activeIndex) {
-        card.classList.add(direction === 'next' ? 'prev' : 'next');
-      }
-    });
-
-    // Uppdatera activeIndex
-    if (direction === 'next') {
-      this.activeIndex = (this.activeIndex + 1) % totalActivities;
-    } else {
-      this.activeIndex = (this.activeIndex - 1 + totalActivities) % totalActivities;
-    }
-
-    // Lägg till klassen "active" på det nya aktiva kortet
-    const activeCard = cards[this.activeIndex];
-    if (activeCard) {
-      activeCard.classList.add('active');
-    }
+    this.activeIndex =
+      direction === 'next'
+        ? (this.activeIndex + 1) % totalActivities
+        : (this.activeIndex - 1 + totalActivities) % totalActivities;
   }
 }

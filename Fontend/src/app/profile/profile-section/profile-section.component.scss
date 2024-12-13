@@ -31,11 +31,6 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   }
 
-  .center-column {
-    flex: 2; /* Mittenkolumnen är bredare */
-    max-width: 50%;
-  }
-
   .right-column {
     flex: 1;
     margin-right: 15px;
@@ -475,96 +470,96 @@
       }
     }
   }
-}
 
-/* Anpassningar för mindre skärmar */
-@media (max-width: 576px) {
-  .three-column-section {
+  .center-column {
+    flex: 2;
+    display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    gap: 20px;
 
-    .column {
-      margin: 0 0 15px; /* Lägger mellanrum mellan kolumner i vertikalt läge */
-      padding: 10px;
-    }
+    .post-section {
+      background-color: #1c1c1c;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
 
-    .right-column, .left-column {
-      flex: 1; /* Anpassar sig till hela bredden */
-    }
+      .add-post {
+        display: flex;
+        align-items: center;
+        gap: 20px;
 
-    .center-column {
-      flex: 1; /* Tar lika mycket utrymme som de andra kolumnerna */
-    }
+        .user-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
 
-    .action-buttons button {
-      font-size: 14px;
-      padding: 10px 15px; /* Justerar storleken för mindre knappar */
-    }
+        .custom-textarea {
+          flex: 1;
 
-    .friends-row .friend-card {
-      flex-direction: column; /* Gör korten vertikala för att passa mindre skärmar */
-      align-items: flex-start;
+          .post-input {
+            width: 98%;
+            min-height: 50px;
+            background-color: #1c1c1c;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+            font-size: 14px;
+            resize: none;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
-      .friend-avatar {
-        margin-right: 0;
-        margin-bottom: 10px;
+            &:focus {
+              border-color: #1db954;
+              box-shadow: 0 0 8px rgba(29, 185, 84, 0.5);
+            }
+
+            &::placeholder {
+              color: #777;
+            }
+          }
+        }
+      }
+
+      .submit-button {
+        padding: 10px 20px;
+        background-color: #1db954; /* Primär färg */
+        color: white;
+        border: none;
+        border-radius: 20px; /* Rundade hörn */
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #14843d; /* Mörkare nyans vid hover */
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Liten skugga vid hover */
+          transform: translateY(-2px); /* Lyft knappen något */
+        }
+
+        &:active {
+          background-color: #0f6229; /* Ännu mörkare vid klick */
+          transform: translateY(0); /* Återställ position vid klick */
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Minska skugga vid klick */
+        }
+
+        &:disabled {
+          background-color: #444; /* Färg för inaktiverad knapp */
+          cursor: not-allowed;
+          box-shadow: none;
+          transform: none;
+        }
       }
     }
+
   }
-}
-
-/* Anpassning för mellanliggande skärmar */
-@media (max-width: 992px) {
-  .three-column-section {
-    .right-column {
-      padding: 15px; /* Minskar padding för att passa mindre skärmar */
-    }
-
-    .playlist-section .playlist {
-      height: auto; /* Låter innehållet definiera höjden */
-      padding: 10px;
-    }
-
-    .recent-activities h2 {
-      font-size: 18px;
-    }
-
-    .about-section h3 {
-      font-size: 18px; /* Justerar rubrikstorleken */
-    }
-  }
-}
-
-/* Globala justeringar */
-button {
-  font-family: inherit;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:focus {
-    outline: none; /* Tar bort standardfokus */
-    box-shadow: 0 0 0 3px rgba(59, 89, 152, 0.3); /* Ger ett subtilt fokusutseende */
-  }
-}
-
-/* Justering av mat-icon */
-mat-icon {
-  vertical-align: middle;
-}
-
-/* Scrollbar design */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #555;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-track {
-  background: #1c1c1c;
 }
 
 /* Anpassningar för mindre skärmar */
