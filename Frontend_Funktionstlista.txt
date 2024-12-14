@@ -1,0 +1,616 @@
+index.html
+
+    Kodanalys:
+        Startpunkten för Angular-applikationen och HTML-dokumentets struktur.
+    Funktioner:
+        Huvudkomponent:
+            <app-root></app-root>: Plats för Angular-applikationens huvudkomponent. Angular renderar applikationen här.
+        Metadata:
+            <meta charset="utf-8">: Sätter teckenkodning till UTF-8.
+            <meta name="viewport" content="width=device-width, initial-scale=1">: Gör applikationen responsiv.
+        Länkar:
+            CSS:
+                Använder Googles Roboto-teckensnitt och Material Icons för stilar och ikoner.
+                <link rel="preload" href="styles.css" as="style"> optimerar laddning av stilar.
+
+main.ts
+
+    Kodanalys:
+        Denna fil är startpunkten för Angular-applikationen och initierar hela applikationen.
+    Funktioner:
+        bootstrapApplication:
+            Initierar Angular-applikationen med AppComponent som rotkomponent.
+        Providers:
+            provideRouter(routes): Tillhandahåller routing baserat på definierade rutter.
+            provideHttpClient(): Gör Angulars HTTP-klient tillgänglig i hela applikationen.
+            provideAnimationsAsync(): Aktiverar stöd för asynkrona animationer.
+        Felhantering:
+            .catch(err => console.error(err)): Loggar eventuella fel under bootstrap-processen.
+
+styles.scss
+
+    Kodanalys:
+        Den globala stilmallen för Angular-applikationen. Definierar grundläggande stilar för hela applikationen.
+    Funktioner:
+        Globala stilar:
+            body:
+                Sätter bakgrundsfärg till mörk (#121212) och textfärg till vit.
+                Tar bort marginaler och padding.
+                Använder Arial som standardtypsnitt.
+            html, body:
+                Säkerställer att hela sidan täcker visningsområdet med height: 100%.
+        Sociala ikoner:
+            .social-icons:
+                Centreras med display: flex och justify-content: center.
+                Ikonerna är cirkulära och har en övergångseffekt för färg och bakgrund vid hover.
+
+app.component.ts
+
+    Kodanalys:
+        Rotkomponenten för Angular-applikationen. Ansvarar för övergripande funktionalitet och layout.
+    Funktioner:
+        ngOnInit():
+            Körs när komponenten initialiseras.
+            Lägger till event listeners för att övervaka användaraktivitet (musrörelser, tangenttryckningar, och klick).
+            Uppdaterar senaste aktivitetstiden i localStorage.
+        updateActivityTime():
+            Sparar aktuell tid som en ISO-sträng i localStorage under nyckeln lastActivity.
+        ngOnDestroy():
+            Körs när komponenten förstörs.
+            Tar bort event listeners för att förhindra minnesläckor.
+
+app.component.html
+
+    Kodanalys:
+        Mallen för rotkomponenten i Angular-applikationen.
+    Funktioner:
+        <router-outlet>:
+            En Angular-direktiv som fungerar som en plats för att rendera komponenter baserat på aktuell rutt.
+            Möjliggör dynamisk navigering i applikationen genom definierade rutter.
+
+app.component.scss
+
+    Kodanalys:
+        Filen är tom och innehåller inga specifika stilar för AppComponent.
+
+app.config.ts
+
+    Kodanalys:
+        Definierar applikationskonfigurationen och tillhandahåller tjänster som används globalt i Angular-applikationen.
+    Funktioner:
+        appConfig:
+            En konfigureringsinstans av typen ApplicationConfig.
+            Innehåller följande providers:
+                provideZoneChangeDetection({ eventCoalescing: true }): Optimerar förändringsdetektering genom att sammanslå flera händelser.
+                provideRouter(routes): Tillhandahåller routertjänster och de definierade rutterna.
+                importProvidersFrom(FormsModule): Importerar Angular's formulärmodul för att möjliggöra användning av ngForm.
+
+app.routes.ts
+
+    Kodanalys:
+        Definierar routing för Angular-applikationen och specificerar vilka komponenter som ska renderas baserat på URL-vägar.
+    Funktioner:
+        routes (array av Routes):
+            En lista över rutter som applikationen stödjer.
+            Innehåller följande:
+                { path: '', redirectTo: '/login', pathMatch: 'full' }: Om ingen specifik rutt anges, omdirigeras användaren till /login.
+                { path: 'login', loadComponent: ... }: Dynamisk laddning av LoginComponent.
+                { path: 'register', component: RegisterComponent }: Statiskt kopplad till RegisterComponent.
+                { path: 'video/:id', component: WatchVideoComponent, canActivate: [AuthGuard] }: Laddar WatchVideoComponent för att visa en specifik video, skyddad av AuthGuard.
+                { path: 'dashboard', loadComponent: ... }: Dynamisk laddning av DashboardComponent, skyddad av AuthGuard.
+                { path: 'upload', loadComponent: ... }: Dynamisk laddning av UploadComponent, skyddad av AuthGuard.
+                { path: 'upload-video/:videoId', loadComponent: ... }: Laddar UploadVideoComponent för att redigera en specifik video, skyddad av AuthGuard.
+                { path: 'upload-youtube-video', loadComponent: ... }: Laddar UploadYoutubeVideoComponent, skyddad av AuthGuard.
+
+auth.guard.ts
+
+    Kodanalys:
+        En Angular Guard som kontrollerar användarens autentisering och aktivitet innan de får åtkomst till skyddade rutter.
+    Funktioner:
+        canActivate():
+            Avgör om en användare får navigera till en skyddad rutt.
+            Kontrollerar:
+                Om det finns en giltig JWT-token lagrad i localStorage.
+                Om användaren har varit aktiv nyligen.
+            Omdirigerar till /login om valideringen misslyckas.
+        isTokenExpired(token: string):
+            Dekodar och analyserar JWT-tokenens payload.
+            Kontrollera om tokenens utgångstid (exp) har passerat.
+        isInactive(lastActivity: string | null):
+            Kontrollerar om användaren har varit inaktiv längre än en gräns (30 minuter).
+            Beräknar inaktivitet baserat på tiden som sparats i localStorage.
+
+video.ts (modell)
+
+    Kodanalys:
+        Definierar en TypeScript-interface för att representera en video och dess metadata.
+    Funktioner:
+        Video (interface):
+            Egenskaper:
+                thumbnail (string): URL till videons miniatyrbild.
+                title (string): Videons titel.
+                channel (string): Namnet på kanalen som laddade upp videon.
+                views (string): Antal visningar som en textsträng.
+                time (string): Uppladdningstid som en textsträng.
+
+video.ts (service)
+
+    Kodanalys:
+        En Angular-tjänst som hanterar HTTP-begäranden för att interagera med backend-API:et relaterat till videor.
+    Funktioner:
+        getAllVideos():
+            Skickar en GET-begäran till backend på endpointen /api/videos.
+            Returnerar en Observable som innehåller en lista över alla videor.
+        getVideoById(id: number):
+            Skickar en GET-begäran till backend på endpointen /api/videos/{id}.
+            Returnerar en Observable som innehåller data för en specifik video baserat på dess ID.
+
+youtube.ts (service)
+
+    Kodanalys:
+        En Angular-tjänst som hanterar API-anrop till YouTube's Data API för att hämta videodetaljer.
+    Funktioner:
+        getVideoDetails(videoId: string):
+            Skickar en
+
+upload.component.html
+
+    Kodanalys:
+        Mallen för uppladdningssidan, där användare kan välja att ladda upp videor via YouTube-länk eller fil.
+    Funktioner:
+        Layout:
+            <app-topbar> och <app-sidebar>: Inkluderar topp- och sidomenyer.
+            <div class="main-content">: Innehåller huvudsektionen för uppladdning.
+        Uppladdningsalternativ:
+            <button>:
+                Två knappar låter användaren välja mellan uppladdning via länk eller fil.
+                (click)="showLinkModal()" och (click)="showFileModal()" öppnar respektive modal.
+        YouTube-länkmodal:
+            *ngIf="isLinkModalOpen": Visar modal om isLinkModalOpen är true.
+            [(ngModel)]="youtubeLink": Binder inmatningen till youtubeLink.
+            (click)="submitYoutubeLink()": Kör logiken för att validera och skicka länken.
+        Filuppladdningsmodal:
+            *ngIf="isFileModalOpen": Visar modal om isFileModalOpen är true.
+            (change)="onFileSelected($event)": Hanterar filval.
+            (click)="uploadVideo()": Kör logiken för att ladda upp filen.
+        Statusmeddelande:
+            *ngIf="message": Visar meddelanden om validering eller uppladdningsstatus.
+
+upload-youtube-video.component.ts
+
+    Kodanalys:
+        Hanterar logiken för uppladdning av en YouTube-video genom att extrahera information från en YouTube-länk.
+    Funktioner:
+        State:
+            youtubeLink: Innehåller användarens YouTube-länk.
+            videoTitle och videoDescription: Håller titel och beskrivning för den uppladdade videon.
+        ngOnInit():
+            Hämtar och validerar YouTube-länken från URL-parametrarna.
+        fetchVideoDetails():
+            Anropar youtubeService för att hämta videoinformation från YouTube baserat på länken.
+        uploadVideo():
+            Validerar videodetaljer (titel och beskrivning).
+            Skickar en POST-begäran till backend för att spara video-informationen.
+
+upload-youtube-video.component.html
+
+    Kodanalys:
+        Mallen för uppladdning av YouTube-video, där användare kan ange en titel och beskrivning innan uppladdningen sker.
+    Funktioner:
+        Layout:
+            <app-topbar> och <app-sidebar>: Inkluderar topp- och sidomenyer.
+            <div class="main-content">: Innehåller huvudsektionen för uppladdning av YouTube-video.
+        Videodetaljer:
+            Fält för användaren att ange titel och beskrivning för videon.
+        Uppladdningsknapp:
+            (click)="uploadVideo()": Startar uppladdningen av videon efter validering av användardata.
+
+watch-video.component.ts
+
+    Kodanalys:
+        Hanterar logiken för att visa och interagera med en specifik video, inklusive videoinformation och användarkommentarer.
+    Funktioner:
+        State:
+            videoId: Hämtar video-ID från URL-parametrarna.
+            videoUrl, videoTitle, videoDescription: Håller videons URL, titel och beskrivning.
+        ngOnInit():
+            Hämtar video-id från URL-parametrarna och initierar sidan.
+            Anropar backend för att hämta video-detaljer och kommentarer.
+        toggleLike() och toggleDislike():
+            Hanterar logik för att gilla och ogilla videon.
+        addComment():
+            Hanterar inlägg av kommentarer och skickar POST-begäran till backend.
+
+watch-video.component.html
+
+    Kodanalys:
+        Mallen för att visa en specifik video och dess interaktioner, inklusive gilla/ogilla och kommentarsfunktionalitet.
+    Funktioner:
+        Video:
+            Visar video med hjälp av <iframe>-taggen.
+            Använder videoUrl för att rendera videon i en inbäddad YouTube-spelare.
+        Videodetaljer:
+            Visa titel, beskrivning och uppladdardetaljer.
+        Like/Dislike:
+            Funktioner för att gilla eller ogilla videon.
+            Visar antalet likes och dislikes.
+        Kommentarer:
+            Användare kan skriva och posta kommentarer via textfält och knappar.
+            Kommentarerna visas i en lista nedanför videon.
+
+video-card.component.ts
+
+    Kodanalys:
+        Komponent för att visa en miniatyrbild och titel för en video i en lista på startsidan eller dashboard.
+    Funktioner:
+        State:
+            videoId: ID för videon som denna kortkomponent representerar.
+            videoTitle: Videons titel som visas i kortet.
+            videoThumbnail: URL till miniatyrbilden för videon.
+        ngOnInit():
+            Hämtar video-information från backend baserat på videoId.
+        goToVideo():
+            Navigerar till videons visningssida när kortet klickas.
+
+video-card.component.html
+
+    Kodanalys:
+        Mallen för video-kortkomponenten.
+    Funktioner:
+        Layout:
+            Visar miniatyrbild av videon som en <img>-tagg.
+            Video-titel visas under miniatyrbilden.
+        Interaktion:
+            *ngFor="let video of videos": Itererar genom en lista av videor och renderar kort för varje video.
+            (click)="goToVideo(videoId)": Navigerar till videons detaljerade vy när kortet klickas.
+
+comments.component.ts
+
+    Kodanalys:
+        Komponent som hanterar visningen och interaktionen med användarens kommentarer på en video.
+    Funktioner:
+        State:
+            comments: En lista av kommentarer som hämtas från backend.
+            newCommentText: Håller den nya kommentaren som användaren skriver.
+        ngOnInit():
+            Hämtar kommentarer för den specifika videon.
+        addComment():
+            Lägger till en ny kommentar via en POST-begäran till backend.
+        deleteComment():
+            Tar bort en kommentar från backend baserat på kommentarens ID.
+
+comments.component.html
+
+    Kodanalys:
+        Mallen för kommentarsektionen på videosidan.
+    Funktioner:
+        Layout:
+            Visar en lista över kommentarer med användarnamn, text och tidpunkt.
+            Användare kan skriva sin egen kommentar i ett textfält.
+        Kommentarernas interaktion:
+            Kommentarer kan tas bort om användaren har rätt behörighet.
+            Användare kan lägga till kommentarer och skicka dem till backend.
+
+video-player.component.ts
+
+    Kodanalys:
+        Hanterar visningen av videospelaren på en videosida.
+    Funktioner:
+        videoUrl: Håller URL:en till den video som ska spelas.
+        ngOnInit():
+            Hämtar den specifika video-URL från backend baserat på video-ID.
+        loadVideo():
+            Laddar videon genom att uppdatera URL:en till <iframe>-spelaren.
+
+video-player.component.html
+
+    Kodanalys:
+        Mallen för att visa videospelaren.
+    Funktioner:
+        Layout:
+            Visar en <iframe> för att bädda in YouTube-videon på sidan.
+            Videoens URL renderas dynamiskt baserat på backend-data.
+        Interaktivitet:
+            Användare kan pausa eller spela upp videon direkt via spelaren.
+
+index.html
+
+Funktioner:
+
+    Huvudkomponent:
+        <app-root></app-root>: Plats för Angular-applikationens huvudkomponent. Angular renderar applikationen här.
+    Metadata:
+        <meta charset="utf-8">: Sätter teckenkodning till UTF-8.
+        <meta name="viewport" content="width=device-width, initial-scale=1">: Gör applikationen responsiv.
+    Länkar:
+        CSS:
+            Länkar till Google Roboto-teckensnitt och Material Icons för stilar och ikoner.
+            <link rel="preload" href="styles.css" as="style"> optimerar laddning av stilar.
+
+main.ts
+
+Funktioner:
+
+    bootstrapApplication: Initierar Angular-applikationen med AppComponent som rotkomponent.
+    Providers:
+        provideRouter(routes): Tillhandahåller routing baserat på definierade rutter.
+        provideHttpClient(): Gör Angulars HTTP-klient tillgänglig i hela applikationen.
+        provideAnimationsAsync(): Aktiverar stöd för asynkrona animationer.
+    Felhantering:
+        .catch(err => console.error(err)): Loggar eventuella fel under bootstrap-processen.
+
+styles.scss
+
+Funktioner:
+
+    Globala stilar:
+        body: Sätter bakgrundsfärg till mörk (#121212) och textfärg till vit. Tar bort marginaler och padding. Använder Arial som standardtypsnitt.
+        html, body: Säkerställer att hela sidan täcker visningsområdet med height: 100%.
+    Sociala ikoner:
+        .social-icons: Centreras med display: flex och justify-content: center. Ikonerna är cirkulära och har en övergångseffekt för färg och bakgrund vid hover.
+
+app.component.ts
+
+Funktioner:
+
+    ngOnInit():
+        Lägger till event listeners för att övervaka användaraktivitet (mus- eller tangenttryckningar, klick).
+        Uppdaterar senaste aktivitetstiden i localStorage.
+    updateActivityTime():
+        Sparar aktuell tid som en ISO-sträng i localStorage under nyckeln lastActivity.
+    ngOnDestroy():
+        Tar bort event listeners för att förhindra minnesläckor när komponenten förstörs.
+
+app.component.html
+
+Funktioner:
+
+    <router-outlet>: Dynamisk rendering av komponenter baserat på aktuell rutt.
+        Gör det möjligt att navigera mellan olika sidor utan att ladda om hela applikationen.
+
+app.component.scss
+
+Funktioner:
+
+    Tom fil: Ingen specifik styling för AppComponent.
+
+app.config.ts
+
+Funktioner:
+
+    appConfig:
+        provideZoneChangeDetection({ eventCoalescing: true }): Optimerar förändringsdetektering genom att sammanslå flera händelser.
+        provideRouter(routes): Tillhandahåller routertjänster och de definierade rutterna.
+        importProvidersFrom(FormsModule): Importerar Angular's formulärmodul för att möjliggöra användning av ngForm.
+
+app.routes.ts
+
+Funktioner:
+
+    routes (array av Routes):
+        Stödjer dynamisk och statisk ruttladdning för komponenter som LoginComponent, RegisterComponent, DashboardComponent, UploadComponent, och UploadYoutubeVideoComponent.
+        Använder AuthGuard för att skydda vissa sidor (t.ex., /dashboard och /upload).
+        Exempel på ny funktionalitet:
+            { path: 'upload-youtube-video', loadComponent: () => import('./upload-youtube-video/upload-youtube-video.component').then(m => m.UploadYoutubeVideoComponent), canActivate: [AuthGuard] }.
+
+auth.guard.ts
+
+Funktioner:
+
+    canActivate():
+        Kontrollerar om användaren är autentiserad (via JWT-token).
+        Om token är ogiltig eller utgången, omdirigerar användaren till /login.
+        Verifierar även om användaren har varit aktiv nyligen genom att kontrollera lastActivity från localStorage.
+    isTokenExpired(token: string):
+        Dekodar och analyserar JWT-tokenens payload för att kontrollera om tokenen har gått ut.
+    isInactive(lastActivity: string | null):
+        Kontrollerar om användaren har varit inaktiv längre än en definierad gräns (t.ex., 30 minuter).
+
+video.ts (modell)
+
+Funktioner:
+
+    Video (interface):
+        Egenskaper:
+            thumbnail (string): URL till videons miniatyrbild.
+            title (string): Videons titel.
+            channel (string): Namnet på kanalen som laddade upp videon.
+            views (string): Antal visningar som en textsträng.
+            time (string): Uppladdningstid som en textsträng.
+
+video.ts (service)
+
+Funktioner:
+
+    getAllVideos():
+        Hämtar alla videor från backend på /api/videos.
+        Returnerar en Observable som innehåller en lista över alla videor.
+    getVideoById(id: number):
+        Hämtar en specifik video från backend på /api/videos/{id} baserat på video-ID.
+        Returnerar en Observable som innehåller data för videon.
+
+youtube.ts (service)
+
+Funktioner:
+
+    getVideoDetails(videoId: string):
+        Hämtar detaljer om en YouTube-video via YouTube API:et baserat på den angivna video-ID:n.
+
+upload.component.html
+
+Funktioner:
+
+    Layout:
+        Innehåller <app-topbar> och <app-sidebar> för att visa de statiska navigeringskomponenterna.
+        En huvudsektion för att ladda upp videor via länk eller fil.
+    Uppladdningsalternativ:
+        Två knappar låter användaren välja mellan uppladdning via länk eller fil.
+        (click)="showLinkModal()" och (click)="showFileModal()": Öppnar respektive modal.
+    YouTube-länkmodal:
+        *ngIf="isLinkModalOpen": Visar modal om isLinkModalOpen är true.
+        [(ngModel)]="youtubeLink": Binder inmatningen till youtubeLink.
+        (click)="submitYoutubeLink()": Kör logiken för att validera och skicka länken.
+    Filuppladdningsmodal:
+        *ngIf="isFileModalOpen": Visar modal om isFileModalOpen är true.
+        (change)="onFileSelected($event)": Hanterar filval.
+        (click)="uploadVideo()": Kör logiken för att ladda upp filen.
+
+upload-youtube-video.component.ts
+
+Funktioner:
+
+    State:
+        youtubeLink: Håller användarens YouTube-länk.
+        videoTitle och videoDescription: Håller titel och beskrivning för videon.
+    ngOnInit():
+        Hämtar och validerar YouTube-länken från URL-parametrarna.
+    fetchVideoDetails():
+        Anropar youtubeService för att hämta videoinformation från YouTube baserat på länken.
+    uploadVideo():
+        Validerar videodetaljer (titel och beskrivning).
+        Skickar en POST-begäran till backend för att spara videoinformationen.
+
+upload-youtube-video.component.html
+
+Funktioner:
+
+    Layout:
+        Innehåller <app-topbar> och <app-sidebar> för navigering.
+        Fält för användaren att ange titel och beskrivning för den uppladdade videon.
+    Uppladdningsknapp:
+        (click)="uploadVideo()": Startar uppladdningen av videon efter validering av användardata.
+
+watch-video.component.ts
+
+Funktioner:
+
+    State:
+        Hämtar video-ID från URL-parametrarna och initierar sidan.
+        Anropar backend för att hämta video-detaljer och kommentarer.
+    toggleLike() och toggleDislike():
+        Hanterar logik för att gilla och ogilla videon.
+    addComment():
+        Hanterar inlägg av kommentarer och skickar POST-begäran till backend.
+
+watch-video.component.html
+
+Funktioner:
+
+    Video:
+        Visar video med hjälp av <iframe>-taggen.
+        Använder videoUrl för att rendera videon i en inbäddad YouTube-spelare.
+    Videodetaljer:
+        Visa titel, beskrivning och uppladdardetaljer.
+    Like/Dislike:
+        Funktioner för att gilla eller ogilla videon. Visar antalet likes och dislikes.
+    Kommentarer:
+        Användare kan skriva och posta kommentarer via textfält och knappar.
+        Kommentarerna visas i en lista nedanför videon.
+
+video-card.component.ts
+
+Funktioner:
+
+    State:
+        videoId: ID för videon som denna kortkomponent representerar.
+        videoTitle: Videons titel som visas i kortet.
+        videoThumbnail: URL till miniatyrbilden för videon.
+    ngOnInit():
+        Hämtar video-information från backend baserat på videoId.
+    goToVideo():
+        Navigerar till videons visningssida när kortet klickas.
+
+video-card.component.html
+
+Funktioner:
+
+    Layout:
+        Visar miniatyrbild av videon som en <img>-tagg.
+        Video-titel visas under miniatyrbilden.
+    Interaktion:
+        *ngFor="let video of videos": Itererar genom en lista av videor och renderar kort för varje video.
+        (click)="goToVideo(videoId)": Navigerar till videons detaljerade vy när kortet klickas.
+
+comments.component.ts
+
+Funktioner:
+
+    State:
+        comments: En lista av kommentarer som hämtas från backend.
+        newCommentText: Håller den nya kommentaren som användaren skriver.
+    ngOnInit():
+        Hämtar kommentarer för den specifika videon.
+    addComment():
+        Lägger till en ny kommentar via en POST-begäran till backend.
+    deleteComment():
+        Tar bort en kommentar från backend baserat på kommentarens ID.
+
+comments.component.html
+
+Funktioner:
+
+    Layout:
+        Visar en lista över kommentarer med användarnamn, text och tidpunkt.
+        Användare kan skriva sin egen kommentar i ett textfält.
+    Kommentarernas interaktion:
+        Kommentarer kan tas bort om användaren har rätt behörighet.
+        Användare kan lägga till kommentarer och skicka dem till backend.
+
+video-player.component.ts
+
+Funktioner:
+
+    State:
+        videoUrl: Håller URL:en till den video som ska spelas.
+    ngOnInit():
+        Hämtar den specifika video-URL från backend baserat på video-ID.
+    loadVideo():
+        Laddar videon genom att uppdatera URL:en till <iframe>-spelaren.
+
+video-player.component.html
+
+Funktioner:
+
+    Layout:
+        Visar en <iframe> för att bädda in YouTube-videon på sidan.
+        Videoens URL renderas dynamiskt baserat på backend-data.
+    Interaktivitet:
+        Användare kan pausa eller spela upp videon direkt via spelaren.
+
+profile-section.component.ts
+
+Kodanalys: Komponenten hanterar visningen av användarens aktivitet och följda artister på profilsidan. Den inkluderar en carousel för att bläddra bland användarens senaste aktiviteter.
+
+Funktioner:
+
+    State:
+        activities: En lista över användarens senaste aktiviteter, som låtar de gillat.
+        followedArtists: En lista över artister som användaren följer, med namn och bild.
+        activeIndex: Håller reda på vilken aktivitet som är aktiv i carouselen.
+    ngOnInit():
+        Skriver ut den aktuella listan av aktiviteter
+
+profile-section.component.html
+
+Kodanalys: Mallen strukturerar komponentens layout, inklusive en tre-kolumnslayout och en carousel för att visa aktiviteter.
+
+Funktioner:
+
+    Layout:
+        Vänster kolumn:
+            Visar följda artister i en grid-layout.
+        Mitten kolumn:
+            Innehåller en carousel som visar senaste aktiviteter.
+            Carousel-kontroller (vänster- och högerknappar) används för navigering.
+        Höger kolumn:
+            Reservplats för ytterligare innehåll.
+
+profile-section.component.scss
+
+Kodanalys: Definierar stilregler för profilsidan, inklusive layouten för tre kolumner och carousel-animationer.
+
+Funktioner:
+
+    Tre-kolumnslayout:
+        Flexbox används för att justera och separera kolumnerna.
+        Varje kolumn har sin egen bakgrund, padding och kant.

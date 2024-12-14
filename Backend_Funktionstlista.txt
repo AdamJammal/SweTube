@@ -1,0 +1,301 @@
+CorsConfig.java
+
+Funktion: Hanterar CORS-konfiguration för att möjliggöra kommunikation mellan frontend och backend på olika domäner.
+
+Funktioner:
+
+    corsConfigurationSource(): Konfigurerar vilka domäner som har åtkomst till backend (allowedOrigins).
+    corsFilter(): Skapar en filterkedja som tillämpar CORS-konfigurationen.
+    Lösenordskryptering med BCryptPasswordEncoder för säker lagring av användarlösenord.
+
+DomainConfig.java
+
+Funktion: Konfigurerar JPA för att hantera domänspecifika inställningar, repository och transaktionshantering.
+
+Funktioner:
+
+    entityManagerFactory(): Konfigurerar EntityManagerFactory för JPA.
+    transactionManager(): Aktiverar transaktionshantering för JPA.
+
+FileUploadConfig.java
+
+Funktion: Konfigurerar filuppladdning för hantering av stora filer i applikationen.
+
+Funktioner:
+
+    multipartConfigElement(): Definierar inställningar för hantering av uppladdade filer, som maximal storlek och lagringsvägar.
+
+JacksonConfig.java
+
+Funktion: Anpassar Jackson för serialisering och deserialisering av JSON-data.
+
+Funktioner:
+
+    jacksonCustomizer(): Anpassar Jackson-inställningarna för att ignorera okända fält, hantera datatyper och serialisera datum.
+
+ApiResponse.java
+
+Funktion: Representerar ett standardiserat API-svar.
+
+Funktioner:
+
+    message: Meddelande som beskriver resultatet.
+    success: Booleskt värde som indikerar om operationen lyckades.
+
+LoginRequest.java
+
+Funktion: Representerar inloggningsdata som skickas från frontend.
+
+Funktioner:
+
+    username: Användarnamn för inloggning.
+    password: Lösenord för inloggning.
+
+LoginResponse.java
+
+Funktion: Representerar svaret vid lyckad inloggning med JWT-token.
+
+Funktioner:
+
+    token: JWT-token för autentisering.
+    userName: Användarens namn.
+    userId: Användarens ID.
+
+User.java
+
+Funktion: JPA-entitet som representerar användardata.
+
+Funktioner:
+
+    userId, userName, userEmail, userPassword, userRoles, userCreatedAt: Fält för användarinformation.
+    @OneToMany: Relationen till videor som användaren har laddat upp.
+
+Video.java
+
+Funktion: JPA-entitet för att representera en video.
+
+Funktioner:
+
+    videoId, videoTitle, videoDescription, videoUrl, filePath, videoThumbnailUrl: Fält för videoinformation.
+    @ManyToOne: Relationen till användaren som laddade upp videon.
+
+UserDTO.java
+
+Funktion: DTO för att hantera användardata mellan frontend och backend.
+
+Funktioner:
+
+    id, username, password, role, email: Fält för användarinformation.
+    Valideringar: @NotBlank, @Size.
+
+VideoDTO.java
+
+Funktion: DTO för videodata.
+
+Funktioner:
+
+    videoId, videoTitle, videoDescription, videoUploadType, videoUrl, videoThumbnailUrl: Fält för videoinformation.
+    Använder @Data från Lombok för generering av getter, setter och andra metoder.
+
+VideoWithUserDTO.java
+
+Funktion: DTO som kombinerar video- och användardata.
+
+Funktioner:
+
+    videoId, videoTitle, videoDescription, userName, videoUploadDate: Fält för att inkludera både videoinformation och användarens namn.
+
+UserRepository.java
+
+Funktion: Repository för att hantera användardata i databasen.
+
+Funktioner:
+
+    existsByUserEmail(): Kontrollera om en användare med en viss e-postadress finns.
+    existsByUserName(): Kontrollera om en användare med ett visst användarnamn finns.
+    findByUserName(): Hämta användare baserat på användarnamn.
+
+VideoRepository.java
+
+Funktion: Repository för att hantera videodata i databasen.
+
+Funktioner:
+
+    findFirstByUser(): Hämta den första videon som är associerad med en användare.
+    findAll(): Hämta alla videor från databasen, med användardata inkluderad via @EntityGraph.
+
+HomeResource.java
+
+Funktion: Enkel REST-kontroller för att exponera en test-/start-sida.
+
+Funktioner:
+
+    index(): Returnerar en enkel sträng "Hello World!" för att testa applikationen.
+
+LoginController.java
+
+Funktion: REST-kontroller för att hantera inloggning och autentisering.
+
+Funktioner:
+
+    login(): Hanterar inloggning via POST-request och returnerar en JWT-token om autentiseringen lyckas.
+
+AuthenticationService.java
+
+Funktion: Hanterar autentisering och JWT-token-generering.
+
+Funktioner:
+
+    authenticate(): Validerar användarens inloggning och genererar en JWT-token om lösenordet är korrekt.
+
+JwtUtil.java
+
+Funktion: Hanterar generering och signering av JWT-tokens.
+
+Funktioner:
+
+    generateToken(): Skapar en JWT-token för autentisering baserat på användarens uppgifter.
+
+NotFoundException.java
+
+Funktion: Används för att hantera fall där resurser inte hittas.
+
+Funktioner:
+
+    @ResponseStatus(HttpStatus.NOT_FOUND): Returnerar en 404-status vid undantag.
+
+ReferencedException.java
+
+Funktion: Hanterar konflikter vid operationer där resurser är refererade och inte kan tas bort.
+
+Funktioner:
+
+    @ResponseStatus(HttpStatus.CONFLICT): Returnerar en 409-status vid undantag.
+
+ReferencedWarning.java
+
+Funktion: Hanterar varningar om referenser som förhindrar borttagning av resurser.
+
+Funktioner:
+
+    addParam(): Lägger till parametervärden relaterade till referensen.
+    toMessage(): Skapar ett strängmeddelande från referensparametrar.
+
+VideoMapper.java
+
+Funktion: Hanterar omvandling mellan Video-entiteter och VideoDTO-objekt.
+
+Funktioner:
+
+    toDTO(): Omvandlar en Video-entitet till ett VideoDTO-objekt.
+    toEntity(): Omvandlar ett VideoDTO-objekt till en Video-entitet.
+
+LikeService.java
+
+Funktion: Hanterar logik för att gilla och ogilla videor.
+
+Funktioner:
+
+    likeVideo(): Lägger till en "like" för en video.
+    dislikeVideo(): Lägger till en "dislike" för en video.
+    countLikes(): Räknar antalet likes för en video.
+    countDislikes(): Räknar antalet dislikes för en video.
+    updateVideoLikes(): Uppdaterar videons totaler för likes.
+    updateVideoDislikes(): Uppdaterar videons totaler för dislikes.
+
+VideoController.java
+
+Funktion: Hanterar REST API-endpoints för videor, inklusive hantering av likes, dislikes och kommentarer.
+
+Funktioner:
+
+    likeVideo(): Endpoint för att gilla en video.
+    dislikeVideo(): Endpoint för att ogilla en video.
+    getUserLikeStatus(): Hämtar en användares like-status för en video.
+    getLikes(): Hämtar totala likes för en video.
+    getDislikes(): Hämtar totala dislikes för en video.
+    addCommentToVideo(): Endpoint för att lägga till en kommentar på en video.
+    getCommentsForVideo(): Endpoint för att hämta alla kommentarer för en video.
+    deleteComment(): Endpoint för att ta bort en kommentar.
+    updateComment(): Endpoint för att uppdatera en kommentar.
+
+Nya Funktioner i UserController
+
+Funktioner:
+
+    getUserProfile(Long userId): Hämtar användarens profil baserat på användar-ID.
+    updateUserProfileWithoutPassword(UserDTO userDTO): Uppdaterar användarens profil utan att ändra lösenordet.
+    changePassword(ChangePasswordDTO changePasswordDTO): Uppdaterar användarens lösenord.
+
+
+Förättringsområde:
+
+Lärdomar från arkitekturen och tillämpningar för SweTube
+1. Event-driven kommunikation med Kafka
+
+    Lärdom:
+        Kafka möjliggör asynkron kommunikation mellan komponenter, vilket förbättrar prestanda och skalbarhet.
+    Tillämpning i SweTube:
+        Använd Kafka eller en liknande event-broker för att hantera realtidsnotifikationer (gilla/ogilla, kommentarer).
+        Exempel: När en användare gillar en video, skicka en Kafka-event som uppdaterar "likes" i databasen och notifierar videons ägare.
+
+2. Modularitet i tjänster
+
+    Lärdom:
+        Separera funktioner i oberoende tjänster (videohantering, meddelanden, profilhantering).
+    Tillämpning i SweTube:
+        Dela upp backend-logiken i moduler:
+            En modul för profilhantering (uppdatera, hämta profiler).
+            En annan modul för interaktioner (gilla/ogilla, kommentarer).
+            Gör det enklare att utveckla och skala utan att påverka hela systemet.
+
+3. Databashändelser med Debezium
+
+    Lärdom:
+        Debezium möjliggör spårning av databashändelser i realtid, vilket gör det möjligt att trigga uppdateringar och synkronisera data.
+    Tillämpning i SweTube:
+        Använd databashändelser för att generera realtidsuppdateringar, t.ex. när någon kommenterar eller gillar en video.
+        Exempel: När en ny kommentar läggs till i databasen, trigga en notifikation till användaren via en WebSocket.
+
+4. Effektiv datahantering med bucket-struktur
+
+    Lärdom:
+        Använd separata lagringsområden för olika typer av data (t.ex. metadata i en databas och filer i en storage bucket).
+    Tillämpning i SweTube:
+        Om du har stora mängder metadata (t.ex. användarinteraktioner), kan du dela upp dessa i separata databaser eller filbaserade system för att förbättra prestanda.
+        Exempel: Ha en dedikerad databas för kommentarer som är optimerad för snabba skrivningar/läsningar.
+
+5. HLS och adaptiv streaming för framtiden
+
+    Lärdom:
+        Använd HLS eller liknande teknik för att möjliggöra adaptiv streaming när videouppladdning implementeras.
+    Tillämpning i SweTube:
+        Redan nu kan du använda HLS för att leverera video-innehåll från tredjepartskällor som YouTube. Detta gör att plattformen redan är optimerad för streaming om egen uppladdning införs senare.
+
+6. Monitoring och skalbarhet
+
+    Lärdom:
+        Arkitekturen använder separata databaser och komponenter som kan övervakas och skalas oberoende.
+    Tillämpning i SweTube:
+        Lägg till monitoringverktyg (t.ex. Prometheus eller Grafana) för att övervaka API-respons, databasprestanda och användarinteraktioner.
+        Förbered för skalbarhet om användarbasen växer, särskilt med tanke på notifikationer och realtidsuppdateringar.
+
+Direkta förbättringar för SweTube
+
+    Event-baserade realtidsnotifikationer:
+        Implementera ett event-baserat system med Kafka eller liknande för att hantera likes, kommentarer och andra användarinteraktioner.
+
+    Optimera databasstrukturen:
+        Dela upp datan i specifika tabeller eller tjänster för profiler, videor och kommentarer för att minska flaskhalsar i databasen.
+
+    Förbered för streaming och skalbarhet:
+        Börja använda HLS eller liknande teknik för att optimera videoleverans redan från YouTube eller andra tredjepartskällor.
+
+Sammanfattning
+
+Även om uppladdning inte är aktuell just nu, kan du använda delar av denna arkitektur för att förbättra SweTubes befintliga funktioner. Fokus kan ligga på:
+
+    Event-baserade system (Kafka).
+    Modularitet i tjänster.
+    Realtidsuppdateringar (Debezium/WebSocket).
+    Skalbar databasstruktur.
